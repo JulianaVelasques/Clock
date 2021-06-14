@@ -1,0 +1,118 @@
+html,
+body {
+  box-sizing: border-box;
+  background: linear-gradient(to right, rgb(127, 71, 145), violet, white);
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+#clock {
+  width: 300px;
+  height: 300px;
+  background-color: rgba(192, 161, 228, 0.562); /* the last number means transparency*/
+  border: solid;
+  border-radius: 50%;
+  position: relative; /*Because then the numbers can be positioned absolute to this*/
+}
+
+.numbers {
+  position: absolute; /*means that they can be relative to the clock*/
+  width: 100%; /*Trick to make the number rotate around the clock easy, it gets the numbers all positioned at the same place*/
+  height: 100%; /*Trick to make the number rotate around the clock easy*/
+  text-align: center;
+  padding-top: 5px;
+  transform: rotate(
+    var(--rotation)
+  ); /* To get the numbers around the clock, with this we can use the rotate property */
+  --rotation: 0; /* by default the value 0*/
+}
+
+/*So we need to do a rotate to each number, to do that, we're gonna use a variable "--rotation"*/
+
+#number1 {
+  --rotation: 30deg;
+}
+#number2 {
+  --rotation: 60deg;
+}
+#number3 {
+  --rotation: 90deg;
+}
+#number4 {
+  --rotation: 120deg;
+}
+#number5 {
+  --rotation: 150deg;
+}
+#number6 {
+  --rotation: 180deg;
+}
+#number7 {
+  --rotation: 210deg;
+}
+#number8 {
+  --rotation: 240deg;
+}
+#number9 {
+  --rotation: 270deg;
+}
+#number10 {
+  --rotation: 300deg;
+}
+#number11 {
+  --rotation: 330deg;
+}
+
+/*In CSS, ::after creates a pseudo-element that is the last child of the selected element.*/
+#clock::after {
+  content: ''; /*It creates a space that will appear after the element clock. It will be the central point*/
+  position: absolute;
+  background-color: royalblue;
+  z-index: 11;
+  width: 15px;
+  height: 15px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+}
+
+/*Now let's do the pointers' base*/
+.pointer {
+  position: absolute;
+  bottom: 50%;
+  left: 50%;
+  width: 10px;
+  height: 50%;
+  background-color: royalblue;
+  transform: translateX(-50%) rotate(calc(var(--rotation) * 1deg)); /*translate property move the element in X-axis. -This move 50% of its width backward */
+  --rotation: 0;
+  transform-origin: bottom; /*To make the pointer be on center*/
+  border-top-left-radius: 45%;
+  border-top-right-radius: 45%;
+  z-index: 10;
+} /*We will use the var rotation on JS. To convert one value of rotation to degre we can use calc(var * 1deg )*/
+
+#seconds {
+  width: 3px;
+  height: 45%;
+  background-color: red;
+}
+
+#minutes {
+  width: 7px;
+  height: 40%;
+  background-color: royalblue;
+}
+
+#hour {
+  width: 5px;
+  height: 35%;
+  background-color: royalblue;
+}
